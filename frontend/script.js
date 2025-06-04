@@ -1,5 +1,5 @@
 // frontend/script.js
-const apiUrl = 'http://localhost:3000/api/produtos'; // URL do seu backend
+const apiUrl = 'http://192.168.56.1:3000/api/produtos'; // URL do seu backend
 
 const formProduto = document.getElementById('formProduto');
 const produtoIdInput = document.getElementById('produtoId');
