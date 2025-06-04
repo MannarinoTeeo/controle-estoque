@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Controle de Estoque</h1>
+
+        <div class="form-container">
+            <h2>Gerenciar Produto</h2>
+            <form id="formProduto">
+                <input type="hidden" id="produtoId">
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div>
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="number" id="quantidade" required min="0">
+                </div>
+                <div>
+                    <label for="preco">Preço (R$):</label>
+                    <input type="number" id="preco" step="0.01" required min="0">
+                </div>
+                <div class="buttons">
+                    <button type="submit" id="btnSalvar">Salvar</button>
+                    <button type="button" id="btnLimpar" onclick="limparFormulario()">Limpar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="lista-container">
+            <h2>Lista de Produtos</h2>
+            <div id="filtroContainer">
+                <label for="filtroNome">Filtrar por Nome:</label>
+                <input type="text" id="filtroNome" onkeyup="listarProdutos()">
+            </div>
+            <table id="tabelaProdutos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Preço (R$)</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+            <p id="mensagemListaVazia" style="display:none;">Nenhum produto encontrado.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
