@@ -106,10 +106,10 @@ app.listen(PORT, () => {
     console.log(`Servidor backend rodando em http://localhost:${PORT}`);
     console.log('-------------------------------------------------');
     console.log('Endpoints disponíveis:');
-    console.log(`  POST   http://localhost:${PORT}/api/produtos`);
-    console.log(`  GET    http://localhost:${PORT}/api/produtos`);
-    console.log(`  GET    http://localhost:${PORT}/api/produtos/:id`);
-    console.log(`  PUT    http://localhost:${PORT}/api/produtos/:id`);
-    console.log(`  DELETE http://localhost:${PORT}/api/produtos/:id`);
+    console.log(`  POST   http://192.168.56.1:${PORT}/api/produtos`);
+    console.log(`  GET    http://192.168.56.1:${PORT}/api/produtos`);
+    console.log(`  GET    http://192.168.56.1:${PORT}/api/produtos/:id`);
+    console.log(`  PUT    http://192.168.56.1:${PORT}/api/produtos/:id`);
+    console.log(`  DELETE http://192.168.56.1:${PORT}/api/produtos/:id`);
     console.log('-------------------------------------------------');
 });
