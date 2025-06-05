@@ -1,25 +1,19 @@
-// backend/server.js
 const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000; // Porta que o backend vai rodar
-
-// Middleware para permitir que o frontend acesse a API
+const PORT = 3000; 
 app.use(cors());
-// Middleware para parsear JSON no corpo das requisições
+
 app.use(express.json());
 
-// --- Nosso "Banco de Dados" em memória ---
 let produtos = [
     { id: 1, nome: 'Produto Exemplo A', quantidade: 10, preco: 19.99 },
     { id: 2, nome: 'Produto Exemplo B', quantidade: 5, preco: 25.50 }
 ];
-let proximoId = 3; // Para gerar IDs únicos
+let proximoId = 3; 
 
-// --- ROTAS DA API (/api/produtos) ---
-
-// POST /api/produtos - Adicionar um novo produto
+// POST /api/produtos
 app.post('/api/produtos', (req, res) => {
     const { nome, quantidade, preco } = req.body;
 
@@ -41,13 +35,13 @@ app.post('/api/produtos', (req, res) => {
     res.status(201).json(novoProduto);
 });
 
-// GET /api/produtos - Listar todos os produtos
+// GET /api/produtos
 app.get('/api/produtos', (req, res) => {
     console.log('Listando produtos:', produtos);
     res.status(200).json(produtos);
 });
 
-// GET /api/produtos/:id - Obter um produto específico
+// GET /api/produtos/:id
 app.get('/api/produtos/:id', (req, res) => {
     const idProduto = parseInt(req.params.id);
     const produto = produtos.find(p => p.id === idProduto);
@@ -61,7 +55,7 @@ app.get('/api/produtos/:id', (req, res) => {
     }
 });
 
-// PUT /api/produtos/:id - Atualizar um produto existente
+// PUT /api/produtos/:id
 app.put('/api/produtos/:id', (req, res) => {
     const idProduto = parseInt(req.params.id);
     const { nome, quantidade, preco } = req.body;
@@ -84,7 +78,7 @@ app.put('/api/produtos/:id', (req, res) => {
     res.status(200).json(produtos[indiceProduto]);
 });
 
-// DELETE /api/produtos/:id - Remover um produto
+// DELETE /api/produtos/:id
 app.delete('/api/produtos/:id', (req, res) => {
     const idProduto = parseInt(req.params.id);
     const indiceProduto = produtos.findIndex(p => p.id === idProduto);
@@ -97,11 +91,8 @@ app.delete('/api/produtos/:id', (req, res) => {
     const produtoRemovido = produtos.splice(indiceProduto, 1);
     console.log('Produto Removido:', produtoRemovido[0]);
     res.status(200).json({ mensagem: 'Produto removido com sucesso.', produto: produtoRemovido[0] });
-    // Ou res.status(204).send(); se não quiser enviar corpo na resposta
 });
 
-
-// Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Servidor backend rodando em http://localhost:${PORT}`);
     console.log('-------------------------------------------------');

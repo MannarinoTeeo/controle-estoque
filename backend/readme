@@ -1,1 +1,2 @@
-Para statar o app basta dar o comando node server.js
+Para statar o backend comando - node server.js
+para statar o front  comando npx http-server --cors

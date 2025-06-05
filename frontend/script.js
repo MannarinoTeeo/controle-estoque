@@ -1,5 +1,5 @@
-// frontend/script.js
-const apiUrl = 'http://192.168.56.1:3000/api/produtos'; // URL do seu backend
+
+const apiUrl = 'http://192.168.56.1:3000/api/produtos'; // URL backend
 
 const formProduto = document.getElementById('formProduto');
 const produtoIdInput = document.getElementById('produtoId');
@@ -10,8 +10,6 @@ const tabelaProdutosBody = document.querySelector('#tabelaProdutos tbody');
 const btnSalvar = document.getElementById('btnSalvar');
 const filtroNomeInput = document.getElementById('filtroNome');
 const mensagemListaVazia = document.getElementById('mensagemListaVazia');
-
-// --- FUNÇÕES DE INTERAÇÃO COM A API ---
 
 async function buscarProdutos() {
     try {
@@ -80,16 +78,12 @@ async function excluirProduto(id) {
             const erroData = await response.json();
             throw new Error(erroData.mensagem || `Erro HTTP: ${response.status}`);
         }
-        // const resultado = await response.json(); // Opcional, se o backend retornar dados
-        // console.log(resultado.mensagem);
-        listarProdutos(); // Atualiza a lista após excluir
+        listarProdutos();
     } catch (error) {
         console.error('Erro ao excluir produto:', error);
         alert(`Erro ao excluir produto: ${error.message}`);
     }
 }
-
-// --- FUNÇÕES DA INTERFACE DO USUÁRIO (UI) ---
 
 function preencherFormulario(produto) {
     produtoIdInput.value = produto.id;
@@ -122,13 +116,13 @@ async function handleSalvarSubmit(event) {
 
     const produto = { nome, quantidade, preco };
 
-    if (id) { // Se tem ID, é atualização
+    if (id) {
         await atualizarProduto(id, produto);
-    } else { // Senão, é adição
+    } else {
         await adicionarProduto(produto);
     }
     limparFormulario();
-    listarProdutos(); // Atualiza a lista
+    listarProdutos(); 
 }
 
 function criarLinhaProduto(produto) {
@@ -149,7 +143,7 @@ function criarLinhaProduto(produto) {
 async function listarProdutos() {
     const produtos = await buscarProdutos();
     const termoFiltro = filtroNomeInput.value.toLowerCase();
-    tabelaProdutosBody.innerHTML = ''; // Limpa a tabela
+    tabelaProdutosBody.innerHTML = '';
 
     const produtosFiltrados = produtos.filter(p => p.nome.toLowerCase().includes(termoFiltro));
 
@@ -174,22 +168,18 @@ async function prepararEdicao(id) {
         if (!response.ok) throw new Error('Produto não encontrado para edição');
         const produto = await response.json();
         preencherFormulario(produto);
-        window.scrollTo(0, 0); // Rola para o topo para ver o formulário preenchido
+        window.scrollTo(0, 0);
     } catch (error) {
         console.error('Erro ao buscar produto para edição:', error);
         alert('Não foi possível carregar os dados do produto para edição.');
     }
 }
 
-
-// --- EVENT LISTENERS ---
 formProduto.addEventListener('submit', handleSalvarSubmit);
 
-// Carregar produtos ao iniciar a página
 document.addEventListener('DOMContentLoaded', listarProdutos);
 
-// Funções globais para os botões inline (poderiam ser adicionadas com event listeners também)
 window.prepararEdicao = prepararEdicao;
 window.excluirProduto = excluirProduto;
 window.limparFormulario = limparFormulario;
-window.listarProdutos = listarProdutos; // Para o filtro onkeyup
+window.listarProdutos = listarProdutos;
